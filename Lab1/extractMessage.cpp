@@ -21,5 +21,14 @@ unsigned char *extractMessage(const unsigned char *message_in, int length) {
 
     // TODO: write your code here
 
+    for (int group = 0; group < length; group = group + 8) {
+       for (int index = 0; index < 8; index++) {
+            for (int set = 0; set < 8; set++) {
+               message_out[group + index] = 
+               message_out[group + index] |
+               (((message_in[group + set] >> index) & 0x1) << set);
+            }
+        }
+    }
     return message_out;
 }
