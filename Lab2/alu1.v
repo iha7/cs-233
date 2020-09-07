@@ -53,8 +53,12 @@ module alu1(out, carryout, A, B, carryin, control);
     input [2:0] control;
 
     // add code here!!!
+    wire BB;
+
+    xor bxor(BB, B, control[0]);
+
     wire fa_sum, lu_out;
-    full_adder fa(fa_sum, carryout, A, B, carryin);
+    full_adder fa(fa_sum, carryout, A, BB, carryin);
     logicunit lu(lu_out, A, B, control[1:0]);
     mux2 mux2v(out, fa_sum, lu_out, control[2]);
 
