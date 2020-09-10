@@ -3,6 +3,7 @@ module test;
 
     /* Make a regular pulsing clock with a 10 time unit period. */
     always #5 clk = !clk;
+    always #20 reset = !reset;
 
     reg [31:0] d;
 
@@ -10,7 +11,7 @@ module test;
     initial begin
         $dumpfile("register.vcd");
         $dumpvars(0, test);
-        # 10  reset = 0;      // stop reseting the register 
+        // # 10  reset = 0;      // stop reseting the register 
 
         # 10
           // write 88 to the register
@@ -24,11 +25,63 @@ module test;
 
         // Add your own testcases here!
 
+        # 10
+          // try writing to the register when its disabled
+          enable = 1;
+          d = 90;
+
+        # 10
+          // try writing to the register when its disabled
+          enable = 1;
+          d = 1;
+
+        # 10
+          // try writing to the register when its disabled
+          enable = 0;
+          d = 100;
+
+        # 10
+          // try writing to the register when its disabled
+          enable = 1;
+          d = 101;
+
+        # 10
+          // try writing to the register when its disabled
+          enable = 1;
+          d = 53;
+
+
+
+        # 10
+          // try writing to the register when its disabled
+          enable = 1;
+          d = 120;
+
+        # 10
+          // try writing to the register when its disabled
+          enable = 1;
+          d = 5;
+
+        # 10
+          // try writing to the register when its disabled
+          enable = 0;
+          d = 150;
+
+        # 10
+          // try writing to the register when its disabled
+          enable = 1;
+          d = 110;
+
+        # 10
+          // try writing to the register when its disabled
+          enable = 1;
+          d = 75;
+
         # 700 $finish;
     end
     
-    initial begin
-    end
+    // initial begin
+    // end
 
     register reg1(q, d, clk, enable, reset);
    
