@@ -37,3 +37,7 @@ module alu32(out, overflow, zero, negative, inA, inB, control);
             ( control[0] &  inA[31] & ~inB[31] & ~out[31]) );
 
 endmodule
+
+
+
+

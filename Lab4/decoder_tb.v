@@ -8,6 +8,13 @@ module decoder_test;
              opcode = `OP_OTHER0; funct = `OP0_ADD; // try addition
         # 10 opcode = `OP_OTHER0; funct = `OP0_SUB; // try subtraction
         // add more tests here!
+        # 10 opcode = OP_OTHER0; funct = OP0_ANDI; // try subtraction
+        # 10 opcode = OP_OTHER0; funct = OP0_ADDI; // try subtraction
+        # 10 opcode = OP_OTHER0; funct = OP0_ORI; // try subtraction
+        # 10 opcode = OP_OTHER0; funct = OP0_XORI; // try subtraction
+        # 10 opcode = OP_OTHER0; funct = OP0_NOR; // try subtraction
+        # 10 opcode = OP_OTHER0; funct = OP0_OR; // try subtraction
+        # 10 opcode = OP_OTHER0; funct = OP0_XOR; // try subtraction
 
         # 10 $finish;
     end
@@ -18,4 +25,6 @@ module decoder_test;
     wire       rd_src, writeenable, except;
     mips_decode decoder(rd_src, writeenable, alu_src2, alu_op, except,
                         opcode, funct);
+
+
 endmodule // decoder_test
