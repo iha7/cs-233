@@ -28,49 +28,46 @@
 // endmodule // arith_machine
 
 
+
+
 module arith_machine(except, clock, reset);
     output      except;
     input       clock, reset;
 
+
     wire [31:0] inst;
     wire [31:0] PC;
 
-    // DO NOT comment out or rename this module
-    // or the test bench will break
-    register #(32) PC_reg( /* connect signals / );
-
-    // DO NOT comment out or rename this module
-    // or the test bench will break
-    instruction_memory im( / connect signals / );
-
-    // DO NOT comment out or rename this module
-    // or the test bench will break
-    regfile rf ( / connect signals / );
-
-    / add other modules */
-
-    wire [31:0]  rt_d, rd_d, B, imm_32, next_pc, rdrs_d;
-    wire [4:0] rd;
-    wire overflow, zero, negative, W_en, rd_src, alu_src2;
+    wire [4:0] rdest;
+    wire [31:0] n_PC, rs_dat, rt_dat, rd_dat, B, imm32;
+    wire overflow, zero, negative, wr_en, rd_src, alu_src2;
     wire [2:0] alu_op;
 
-    Si_ex signer(imm_32, inst[15:0]);
-    mux2v muxuno(B, rt_d, imm_32, alu_src2);
-    mux2v #(5) muxdos(rd, inst[15:11], inst[20:16], rd_src);
-    mips_decode uncode(alu_op, W_en, rd_src, alu_src2, except, inst[31:26], inst[5:0]);
+    // DO NOT comment out or rename this module
+    // or the test bench will break
+    register #(32) PC_reg(PC, n_PC, clock, 1'b1, reset);
 
-    alu32 alupc(next_pc, , , , PC, 32'b100, `ALU_ADD);
-    alu32 register_alu(rd_d, overflow, zero, negative, rdrs_d, B, alu_op);
+    // DO NOT comment out or rename this module
+    // or the test bench will break
+    instruction_memory im(inst[31:0], PC[31:2]);
+
+    // DO NOT comment out or rename this module
+    // or the test bench will break
+    regfile rf(rs_dat, rt_dat, inst[25:21], inst[20:16], rdest, rd_dat, wr_en, clock, reset);
+
+    /* add other modules */
+    mux2v b_mux(B, rt_dat, imm32, alu_src2);
+    alu32 ralu(rd_dat, overflow, zero, negative, rs_dat, B, alu_op);
+    mips_decode ddee(alu_op, wr_en, rd_src, alu_src2, except, inst[31:26], inst[5:0]);
+    se sit(imm32, inst[15:0]);
+    alu32 palu(n_PC, , , , PC, 32'b100, `ALU_ADD);
+    mux2v #(5) d_mux(rdest, inst[15:11], inst[20:16], rd_src);
 
 endmodule // arith_machine
-
-
-
-module Si_ex(imm_32, imm_16);
-
-input [15:0] imm_16;
-output [32:0] imm_32;
-assign imm_32[31:16] = {16{imm_16[15]}};
-assign imm_32[15:0] = imm_16[15:0];
-
+module se(imm32, imm16);
+    input [15:0] imm16;
+    output [32:0] imm32;
+    assign imm32[15:0] = imm16[15:0];
+    assign imm32[31:16] = {16{imm16[15]}};
 endmodule // Si_ex
+
