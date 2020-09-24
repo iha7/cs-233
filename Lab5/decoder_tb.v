@@ -10,6 +10,16 @@ module decoder_test;
              opcode = `OP_OTHER0; funct = `OP0_ADD; // see if addition still works
         # 10 opcode = `OP_OTHER0; funct = `OP0_SUB; // see if subtraction still works
         // test all of the others here
+        # 10 opcode = `OP_XORI; // try a taken beq
+        # 10 opcode = `OP_ADDI; // try a taken beq
+        # 10 opcode = `OP_ANDI; // try a taken beq
+        # 10 opcode = `OP_ORI; // try a taken beq
+        # 10 opcode = `OP_OTHER0; funct = `OP0_OR; // try a taken beq
+        # 10 opcode = `OP_OTHER0; funct = `OP0_AND; // try a taken beq
+        # 10 opcode = `OP_OTHER0; funct = `OP0_ADD; // try a taken beq
+        # 10 opcode = `OP_OTHER0; funct = `OP0_NOR; // try a taken beq
+        # 10 opcode = `OP_OTHER0; funct = `OP0_SUB; // try a taken beq
+        # 10 opcode = `OP_OTHER0; funct = `OP0_XOR; // try a taken beq
         
         // as should all the new instructions from this week
         # 10 opcode = `OP_BEQ; zero = 0; // try a not taken beq
