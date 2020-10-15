@@ -13,26 +13,30 @@ module timer(TimerInterrupt, cycle, TimerAddress,
     //       to prevent an interrupt being raised the very first cycle
 
     wire    [31:0] a, b, a2;
-    wire    Acknowledge, cE6, cE1, write_time, TimerRead, resettwo, equal;
+    wire    a_var_kno, c_e6, c_e1, write_time, read_time, set_two, equal;
 
-    register count(a, b, clock, 1,reset);
+    register count(a, b, clock, 1, reset);
     alu32 add_alu(b, , ,`ALU_ADD, a, 32'h1);
+
+
+
+    //reset
     register #(32, 32'hffffffff)
     cycle_intr(a2, data, clock, write_time, reset);
-
     assign equal = (a == a2);
-    tristate #(32) three_read(cycle, a, TimerRead);
+    tristate #(32) three_read(cycle, a, read_time);
 
-    assign resettwo = (Acknowledge | reset);
+    assign set_two = (a_var_kno | reset);
+    dffe intr(TimerInterrupt, 1, clock, equal, set_two);
 
-    dffe intr(TimerInterrupt, 1, clock, equal, resettwo);
 
-    assign TimerAddress = (cE1 | cE6);
-    assign Acknowledge = (cE6 & MemWrite);
-    assign TimerRead = (cE1 & MemRead);
-    assign write_time = (cE1 & MemWrite);
 
-    assign cE1 = ('hffff001c == address);
-    assign cE6 = ('hffff006c == address);
+    //assign rest
+    assign a_var_kno = (c_e6 & MemWrite);
+    assign read_time = (c_e1 & MemRead);
+    assign c_e1 = ('hffff001c == address);
+    assign c_e6 = ('hffff006c == address);
+    assign TimerAddress = (c_e1 | c_e6);
+    assign write_time = (c_e1 & MemWrite);
 
  endmodule
