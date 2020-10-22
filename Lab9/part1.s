@@ -45,9 +45,9 @@ main:
         or      $t4, $t4, TIMER_INT_MASK	  # timer interrupt bit
         or      $t4, $t4, BONK_INT_MASK	  # timer interrupt bit
         or      $t4, $t4, 1                       # global enable
-	    mtc0    $t4, $12
+	mtc0    $t4, $12
 
-#Fill in your code here
+# Fill in your code here
 
 infinite:
         j       infinite              # Don't remove this! If this is removed, then your code will not be graded!!!
@@ -90,17 +90,17 @@ interrupt_dispatch:                     # Interrupt:
 
 bonk_interrupt:
         sw      $0, BONK_ACK
-#Fill in your code here
+# Fill in your code here
         j       interrupt_dispatch      # see if other interrupts are waiting
 
 request_puzzle_interrupt:
         sw      $0, REQUEST_PUZZLE_ACK
-#Fill in your code here
+# Fill in your code here
         j	interrupt_dispatch
 
 timer_interrupt:
         sw      $0, TIMER_ACK
-#Fill in your code here
+# Fill in your code here
         j   interrupt_dispatch
 non_intrpt:                             # was some non-interrupt
         li      $v0, PRINT_STRING
