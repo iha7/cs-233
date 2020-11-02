@@ -71,15 +71,6 @@
 
 
 
-
-
-
-
-
-
-// endmodule // pipelined_machine
-
-
 module pipelined_machine(clk, reset);
     input        clk, reset;
 
